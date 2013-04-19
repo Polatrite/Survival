@@ -1,3 +1,15 @@
+/*
+obj procs.dm
+
+Almost all of this code handles object stacking. I created this wackysack stacking
+mechanism way back in 2002 when Survival1 was choking to death because we had like
+40k objects instantiated at a time on a 433mhz PC. Modern stacking systems are way
+better and could replace this, but hey - it gets the job done.
+
+Also has some drag-and-drop stuff.
+
+*/
+
 proc
 	Validate(A, ls[])
 		if(A == null)

@@ -1,3 +1,7 @@
+/*
+This file handles most of the browser interface (which is practically all of the sidebar).
+*/
+
 obj
 	system
 		close_inventory
@@ -11,103 +15,6 @@ obj
 
 mob/game
 	proc
-/*
-		output_stat_html()
-			var/html = interface_html_header
-			// Moved this stuff to /mob/game/UpdateStats
-//			var/hp_percent = hp / maxhp
-//			var/stamina_percent = stamina / maxstamina
-//			hp_percent *= 100
-//			stamina_percent *= 100
-//			winset(src, "default.hp_bar", "value=[hp_percent]")
-//			winset(src, "default.stamina_bar", "value=[stamina_percent]")
-			html += {"
-  <script type="text/javascript" src="sActions.js"></script> <!-- JavaScript Commands -->
-    <body onload="killFocus()" onmouseup="killFocus()">
-    </body>
-"}
-/*
-      <div class="spacer" style="height:4px; font-size:4px"></div>
-      <div class="spacer" style="height:4px; font-size:4px"></div>
-      <div class="spacer" style="height:4px; font-size:4px"></div>
-
-
-      Health:
-      [hp]/[maxhp]<br>
-      <div class="rect" id="rectangle" style="width:[207 * hp_percent]; height:13; background-color:#A00; border:2 solid #5A4334;"> </div>
-      <div class="spacer" style="height:4px; font-size:4px"></div>
-      Stamina:
-      [stamina]/[maxstamina]<br>
-      <div class="rect" id="rectangle" style="width:[207 * stamina_percent]; height:13; background-color:#00A; border:2 solid #5A4334;"> </div>
-
-
-      Weight:<br/>
-      [weight_held]/[weight_max]<br/>
-*/
-			html += interface_html_footer
-
-			return html */
-
-
-
-
-
-
-/* old tabs
-
-
-		<!-- Wood Panel (Woodworking) -->
-		<div class="actions" id="woodPanel">
-			<button class="imgBtn" onmouseover="showDesc('<b>Lumberjack</b><br/>Chop down a nearby tree with an axe.', this)" onclick="sendMessage('action=lumberjack')" onmouseout="clearDesc(this)"><img src="sWoodLumberjack.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Chop</b><br/>Chop a nearby log into lumber with an axe.', this)" onclick="sendMessage('action=chop')" onmouseout="clearDesc(this)"><img src="sWoodChop.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Uproot</b><br/>Uproot a nearby stump with a shovel.', this)" onclick="sendMessage('action=uproot')" onmouseout="clearDesc(this)"><img src="sWoodUproot.png"/></button>
-			<br>
-			<button class="imgBtn" onmouseover="showDesc('<b>Craft</b><br/>Create wooden tools and items from logs and lumber.', this)" onclick="sendMessage('action=craft')" onmouseout="clearDesc(this)"><img src="sWoodCraft.png"/></button>
-		</div>
-
-
-		<!-- Stone Panel (Stoneworking) -->
-		<div class="actions" id="stonePanel">
-			<button class="imgBtn" onmouseover="showDesc('<b>Sculpt</b><br/>Create stone tools and items from boulders and stone.', this)" onclick="sendMessage('action=sculpt')" onmouseout="clearDesc(this)"><img src="sStoneSculpt.png"/></button>
-		</div>
-
-
-		<!-- Brick Panel (Brickworking) -->
-		<div class="actions" id="brickPanel">
-			<button class="imgBtn" onmouseover="showDesc('<b>Fill</b><br/>Fill brickracks with clay.', this)" onclick="sendMessage('action=fill')" onmouseout="clearDesc(this)"><img src="sBrickFill.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Remove</b><br/>Remove bricks from brickracks.', this)" onclick="sendMessage('action=remove')" onmouseout="clearDesc(this)"><img src="sBrickRemove.png"/></button>
-			<br>
-			<button class="imgBtn" onmouseover="showDesc('<b>Build</b><br/>Build constructions with bricks.', this)" onclick="sendMessage('action=brickbuild')" onmouseout="clearDesc(this)"><img src="sBrickBuild.png"/></button>
-		</div>
-
-
-		<!-- Metal Panel (Metalworking) -->
-		<div class="actions" id="metalPanel">
-			<button class="imgBtn" onmouseover="showDesc('<b>Mine</b><br/>Mine ore and other minerals from rock.', this)" onclick="sendMessage('action=mine')" onmouseout="clearDesc(this)"><img src="sMetalMine.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Refine</b><br/>Refine ores and other minerals into more usable forms.', this)" onclick="sendMessage('action=refine')" onmouseout="clearDesc(this)"><img src="sMetalRefine.png"/></button>
-			<br>
-			<button class="imgBtn" onmouseover="showDesc('<b>Forge</b><br/>Create metal equipment and items from ore and metal bars.', this)" onclick="sendMessage('action=forge')" onmouseout="clearDesc(this)"><img src="sMetalForge.png"/></button>
-		</div>
-
-
-
-
-
-			<button class="imgBtn" onmouseover="showDesc('<b>Pick Up</b><br/>Picks up a nearby item.', this)" onclick="sendMessage('action=get')" onmouseout="clearDesc(this)"><img src="sPersonPickup.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Drop</b><br/>Drops an item from your inventory.', this)" onclick="sendMessage('action=drop')" onmouseout="clearDesc(this)"><img src="sPersonDrop.png"/></button>
-			<br>
-			<button class="imgBtn" onmouseover="showDesc('<b>Equipment</b><br/>Displays the weapons and armor you posess.', this)" onclick="sendMessage('action=equipment')" onmouseout="clearDesc(this)"><img src="sPersonEquipment.png"/></button>
-			<button class="imgBtn" onmouseover="showDesc('<b>Skills</b><br/>Displays your skill points.', this)" onclick="sendMessage('action=skills')" onmouseout="clearDesc(this)"><img src="sPersonSkills.png"/></button>
-
-
-
-
-
-
-<a class="tab" onmouseover="showDesc('<big><b>Woodworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('wood', 0, 'Woodworking')" onclick="this.blur()" id="woodTab"><img src="sTabWood.png" border="0"/></a><a class="tab" onmouseover="showDesc('<big><b>Stoneworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('stone', 0, 'Masonry')" onclick="this.blur()" id="stoneTab"><img src="sTabStone.png" border="0"/></a><a class="tab" onmouseover="showDesc('<big><b>Brickworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('brick', 0, 'Brickworking')" onclick="this.blur()" id="brickTab"><img src="sTabBrick.png" border="0"/></a><a class="tab" onmouseover="showDesc('<big><b>Metalworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('metal', 1, 'Metalworking')" onclick="this.blur()" id="metalTab"><img src="sTabMetal.png" border="0"/></a><img class="tab" src="sTabEnd.png" id="endTab"/>
-
-*/
-
 
 		output_menu_html()
 			var/html = interface_html_header

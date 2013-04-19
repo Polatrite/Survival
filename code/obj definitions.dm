@@ -1,3 +1,28 @@
+/*
+obj definitions.dm
+
+Awww yeah, objects! These things are pretty important.
+
+- System objects for internal/code use
+- Landscape/structure objects on the map
+- Portable objects and items for players to carry and use
+
+I tried to remove as much code from this file as possible. Just about every object
+just calls some basic function, such as lumber:
+
+	lumber
+		weight = 200
+		icon = 'Resources.dmi'
+		icon_state = "wood"
+		Click()
+			v_craft(usr, "Wood Craft", usr:skill_woodworking)
+
+This keeps thing as maintainable as possible. Need to add a new food? Easy! New materials?
+Easy! KISS.
+
+*/
+
+
 obj
 	layer = LAYER_OBJ
 

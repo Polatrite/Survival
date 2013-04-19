@@ -1,3 +1,9 @@
+/*
+These functions are called by aliases in the default.dmf interface file.
+This handles tabbing between chat tabs.
+
+*/
+
 client
 	verb
 		tabnext() // Left here to prevent client-side errors.  See /mob/game/verb/tabnext

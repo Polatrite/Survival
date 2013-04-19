@@ -5,6 +5,7 @@ area
 	noob_mine_spawn
 
 
+	// Wraps the world to allow infinite walking in both X/Y axis.
 	wrap
 		Enter(mob/M)
 			if(istype(M, /obj/system/flyover))
@@ -37,6 +38,8 @@ area
 				M.x = 10
 
 
+	// Used when automatically populating the world with plant life, animals and more.
+	// Also used for crop growth and some player actions and skills.
 	low_fertility
 		no_fertility
 			no_build

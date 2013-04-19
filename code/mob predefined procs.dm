@@ -1,3 +1,12 @@
+/*
+mob predefined procs.dm
+
+Handles creating a new character, logins, logouts, saving, as well as updating the GUI stats.
+Also has entries for Click/DblClick() on mobs (usually to target/attack) and some movement
+handling.
+
+*/
+
 mob/game/player
 	New()
 		..()

@@ -1,3 +1,12 @@
+/*
+craft data.dm
+
+All about crafting stuff! Adding elements to these lists allow you to craft new stuff.
+To make something craftable, literally just add the new entry and it will show up
+automatically to eligible characters.
+
+*/
+
 
 var/list/craftables = list(
 //		"Craft Name" = list(

@@ -1,3 +1,15 @@
+/*
+savefile management.dm
+
+This code is an embarassment to the art of software engineering, frankly. Handles
+saving/loading of files. Fortunately you probably don't need to modify any of that.
+
+Buried in here, however, is the STARTING GEAR for new characters. Why here? Who
+knows, but there it is. This also includes the entire CHARACTER CREATION interface.
+
+*/
+
+
 var/const/SAVEFILE_VERSION = 5
 
 proc/LoadFromSavefile(savefile/f)

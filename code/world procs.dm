@@ -1,5 +1,25 @@
 #define DEBUG
 
+/*
+world procs.dm
+
+Lots of important stuff in here. This is where the event loop gets loaded
+and runs.
+
+Event loop:
+- Creates all the random stuff in the game, animals, weeds, trees, etc.
+- Respawns mobs, fishing nodes, etc.
+- Day/night cycle
+- Weather
+- When AI occurs
+- Combat rounds
+- Regen ticks
+- etc.
+
+Also manages bootup and shutdown, including loading the map and saving it.
+
+*/
+
 world
 	New()
 		world.log = file("logs/[time2text(world.realtime,"MM-DD-YY-hh.mm")].txt")

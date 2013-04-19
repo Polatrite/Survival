@@ -1,3 +1,10 @@
+/*
+skill handling.dm
+
+More of skill definitions.dm, pretty much.
+
+*/
+
 mob/game
 	proc
 

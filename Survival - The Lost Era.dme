@@ -93,6 +93,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "A_GUIDE_TO_CODE.dm"
 #include "default.dmf"
 #include "yoga.dmp"
 #include "code\a_define.dm"
@@ -123,7 +124,6 @@
 #include "code\obj definitions.dm"
 #include "code\obj procs.dm"
 #include "code\obj variables.dm"
-#include "code\obj verbs.dm"
 #include "code\savefile management.dm"
 #include "code\skill definitions.dm"
 #include "code\skill handling.dm"

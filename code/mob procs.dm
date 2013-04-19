@@ -1,3 +1,18 @@
+/*
+mob procs.dm
+
+There's a lot going on in this file - too much, in fact.
+
+- Messaging functions (so all messages display in the style/theme of the game)
+- Music handler
+- Tick handling, includes regen, stamina and timers
+- Skill delay management (e.g. how long does each skill take)
+- Inventory management, drop/get/equip
+- House ownership, adding and removing owners
+
+*/
+
+
 mob/game
 	proc
 		mess(msg, msg2)

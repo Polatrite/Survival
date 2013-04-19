@@ -1,3 +1,13 @@
+/*
+mob verbs.dm
+
+Lots of commands. Most of these are really for debugging, and many are invisible to players
+or unused entirely. Generally speaking I don't like using verbs where I can help it, and
+wanted to make the game mostly mouse centric.
+
+*/
+
+
 mob/game
 	verb
 		who()
@@ -85,7 +95,7 @@ mob/game
 				world << S.volume
 				sleep(2)
 
-		ibricku()
+		/*ibricku()
 			set src in world
 			set hidden = 1
 			var/mob/game/m = src
@@ -218,7 +228,7 @@ mob/game
 		spitcode(val as num)
 			set hidden = 1
 			var/expmin = 1.1 ** val * 30
-			world << expmin
+			world << expmin*/
 
 		sendfile(mob/M as mob in world,F as file)
 			set hidden = 1
@@ -257,7 +267,7 @@ mob/game
 					src << browse(html1 + "Private ShowCode to [target.key]." + html2, "window=showcode_to_[ckey]")
 			return 1
 
-		savemapfile(map_name as text)
+		/*savemapfile(map_name as text)
 			set hidden = 1
 			if((ckey(map_name) != lowertext(map_name)) || (!ckey(map_name)))
 				usr << "The file name you supplied includes invalid characters, or is empty. Please supply a valid file name."
@@ -266,6 +276,6 @@ mob/game
 			var/turf/south_west_deep = locate(1,1,1)
 			var/turf/north_east_shallow = locate(world.maxx,world.maxy,world.maxz)
 			D.save_map(south_west_deep, north_east_shallow, map_name, flags = DMP_IGNORE_PLAYERS|DMP_IGNORE_AREAS|DMP_IGNORE_OBJS|DMP_IGNORE_NPCS)
-			usr << "The file [map_name].dmp has been saved."
+			usr << "The file [map_name].dmp has been saved."*/
 
 

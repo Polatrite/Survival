@@ -6,6 +6,7 @@
 # Temporary IDE files
 *.dyn
 *.int
+*.lk
 
 # Game runtime files
 automap.txt

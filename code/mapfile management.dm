@@ -1,3 +1,10 @@
+/*
+mapfile management.dm
+
+Saves and loads the world to the map file. Uses a proprietary and scary format developed in 2001.
+
+*/
+
 world
 	proc/Clear()
 		for(var/obj/game/item/T in world)

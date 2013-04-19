@@ -4,6 +4,7 @@ atom
 
 		Timer()
 
+		// Clones all non-temporary variables of an atom and makes a replica.
 		Clone()
 			var/atom/O = src
 			var/atom/new_O = new O.type(O.loc)
@@ -17,7 +18,7 @@ atom
 			M.Bumped(src)
 
 		proc
-
+			// Warps an atom to a new location
 			Transfer(newloc)
 				var/turf/oldloc = loc	// remember for range calculations
 				// list turfs in view and luminosity range of old loc

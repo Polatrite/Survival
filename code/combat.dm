@@ -1,3 +1,9 @@
+/*
+combat.dm
+
+Pretty much everything related to Killin' Dudes. Also handles death and respawns.
+*/
+
 mob/game
 
 	proc
@@ -41,6 +47,8 @@ mob/game
 				// for every 5 shielding, remove 1 damage
 				// for every 10 defense, remove 1 damage
 				damage -= hit_target.GetSkillMod("shielding", 5) + (hit_target.defense/10)
+
+				// static (damage-2) rounding for low damage fighting, and (damage*0.7) for high damage fighting
 				damage = round(rand(min(damage-2,damage*0.7), damage))
 
 				fighting = FIGHTING_DURATION
@@ -65,6 +73,7 @@ mob/game
 			ChangeHP(-mod, deathcheck=0)
 			DeathCheck(attacker)
 
+		// Change their HP and also create blood if necessary. Update health bars too.
 		ChangeHP(mod, deathcheck=1)
 			hp += mod
 			if(mod < 0)

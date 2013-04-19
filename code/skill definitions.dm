@@ -1,3 +1,11 @@
+/*
+skill definitions.dm
+
+Contains all the skills! This also contains the skill growth formulas, skill
+leveling, experience, focus changing, and all that jazz.
+
+*/
+
 skill
 	var
 		mob/game/owner

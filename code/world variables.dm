@@ -1,9 +1,9 @@
 world
 	tick_lag = 1
 	hub = "Polatrite.SurvivalTheLostEra"
-	hub_password = "xHtBu7ccywRAcfii"
+	hub_password = ""
 	name = "Survival - The Lost Era"
-	status = "Main World - 24/7"
+	status = ""
 	view = "17x13"
 	turf = /turf/water
 	mob = /mob/login

@@ -1,3 +1,17 @@
+/*
+global action procs.dm
+
+- Eating
+- Drinking
+- Filling containers
+- Lighting and extinguishing lights
+- Targeting characters (including beginning combat)
+- Hiding behind objects
+- Looting corpses
+
+*/
+
+
 proc
 	v_eat(mob/game/M, obj/game/O)
 		if(M.action)

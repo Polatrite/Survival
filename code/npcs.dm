@@ -1,3 +1,14 @@
+/*
+npcs.dm
+
+NPCs in Survival are about the dumbest NPCs in the entire world. This was never a game
+based around PVE combat, that's for damn sure.
+
+- Artificial "intelligence"
+- Mob definitions and stats
+
+*/
+
 proc
 	BasicWalk()
 		spawn(1)

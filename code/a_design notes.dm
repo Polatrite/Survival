@@ -1,5 +1,17 @@
 /*
 
+Alphabet
+Mathematics
+Engineering
+Machinery
+Autonomy
+
+
+fur
+sugar
+rum
+
+
 Trees should be handled by a growth loop. Trees should automatically
 tend to group together, so some initial trees could be placed and
 additional trees grow near them. Trees also produce seeds, and seeds

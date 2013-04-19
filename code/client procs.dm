@@ -1,3 +1,12 @@
+/*
+This is mostly a bunch of boring client stuff.
+
+- Preloads browser resources and images
+- Handles keymapping for movement
+- Has some client-related stuff for centering the window and whatnot
+
+*/
+
 client
 	var/rscLoaded = 0
 	New()
