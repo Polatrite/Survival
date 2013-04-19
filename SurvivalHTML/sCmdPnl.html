@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <title>Survival Command Panel</title>
+    <style type="text/css">
+      <!--
+
+      BODY {
+      	background-color: #080;
+      	background-image: url("sLeaves.png");
+      	font-family: tahoma;
+      	color: #FE6;
+      }
+
+      .imgBtn {
+      	border: 2 outset #FEA;
+      	background-color: #FEA;
+      	height: 36px;
+      	width: 36px;
+      	margin: 2px 3px 2px 3px;
+      }
+
+      .lockBtn {
+      	border: 1 outset #FEA;
+      	background-color: #FEA;
+      	height: 16px;
+      	width: 16px;
+      	margin: 2px 2px 2px 3px;
+      	padding: 0px 0px 0px 0px;
+      }
+
+      .folder {
+      	border: 2 solid #5A4334;
+      	background-color: #FEA;
+      	background-image: url("sPaper.png");
+      	padding: 3px 3px 3px 3px;
+      	color: #040;
+      }
+
+      .folder .actions, .folder .desc {
+      	border: 1 inset #FEA;
+      	background-color: #6A2;
+      	background-image: url("sLeaves2.png");
+      	padding: 5px 5px 5px 5px;
+      	text-align: center;
+      }
+
+      .folder .actions {
+        height: 200px;
+        display: none;
+      }
+
+      .folder .desc {
+      	height: 6em;
+      	color: #FFF;
+      	margin-left: 10px;
+      	margin-right: 10px;
+      	padding: 0px 5px 0px 5px;
+      	font-size: 10px;
+      }
+
+      .tab {
+      	position: relative;
+      	top: 5;
+        left: 9;
+        padding: 0px !important;
+        margin: 0px !important;
+      	cursor: default;
+      }
+      -->
+    </style>
+    <script type="text/javascript" src="sActions.js"></script> <!-- JavaScript Commands -->
+  </head>
+
+  <body onload="killFocus()" onmouseup="killFocus()">
+    <div style="width:207; height:407; position:absolute; border:0 solid #000;">
+
+      <a class="tab" onmouseover="showDesc('<big><b>Personal</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('person', 0, 'Personal')" onclick="this.blur()" id="personTab"><img src="sTabPerson.png" border="0"/></a>
+	  <a class="tab" onmouseover="showDesc('<big><b>Woodworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('wood', 0, 'Woodworking')" onclick="this.blur()" id="woodTab"><img src="sTabWood.png" border="0"/></a>
+      <a class="tab" onmouseover="showDesc('<big><b>Stoneworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('stone', 0, 'Masonry')" onclick="this.blur()" id="stoneTab"><img src="sTabStone.png" border="0"/></a>
+      <a class="tab" onmouseover="showDesc('<big><b>Brickworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('brick', 0, 'Brickworking')" onclick="this.blur()" id="brickTab"><img src="sTabBrick.png" border="0"/></a>
+      <a class="tab" onmouseover="showDesc('<big><b>Metalworking</b></big>')" onmouseout="clearDesc()" href="javascript:showPanel('metal', 1, 'Metalworking')" onclick="this.blur()" id="metalTab"><img src="sTabMetal.png" border="0"/></a>
+
+      <img class="tab" src="sTabEnd.png" id="endTab"/>
+
+      <div class="folder">
+        &nbsp; <b id="tabTitle">Category</b>
+
+        <!-- Neutral Panel -->
+        <div class="actions" id="Panel" style="display: block">
+        </div>
+
+
+		<!-- Person Panel (Personal) -->
+        <div class="actions" id="personPanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Pick Up</b><br/>Picks up a nearby item.', this)" onclick="sendMessage('action=get')" onmouseout="clearDesc(this)"><img src="sPersonPickup.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Drop</b><br/>Drops an item from your inventory.', this)" onclick="sendMessage('action=drop')" onmouseout="clearDesc(this)"><img src="sPersonDrop.png"/></button>
+			<br>
+			<button class="imgBtn" onmouseover="showDesc('<b>Inventory</b><br/>Displays the items you are posessing.', this)" onclick="sendMessage('action=inventory')" onmouseout="clearDesc(this)"><img src="sPersonInventory.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Equipment</b><br/>Displays the weapons and armor you posess.', this)" onclick="sendMessage('action=equipment')" onmouseout="clearDesc(this)"><img src="sPersonEquipment.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Skills</b><br/>Displays your skill points.', this)" onclick="sendMessage('action=skills')" onmouseout="clearDesc(this)"><img src="sPersonSkills.png"/></button>
+			Woodcutting:<img class="lockBtn" onmouseover="showDesc('<b>Increase Focus</b><br/>Allows skill focus to increase.', this)" onclick="sendMessage('action=skillset&type=increase&skill=woodcutting')" onmouseout="clearDesc(this)" src="icon_plus.png"/><img class="lockBtn" onmouseover="showDesc('<b>Lock Focus</b><br/>Locks skill focus, preventing any change.', this)" onclick="sendMessage('action=skillset&type=lock&skill=woodcutting')" onmouseout="clearDesc(this)" src="icon_lock.png"/><img class="lockBtn" onmouseover="showDesc('<b>Decrease Focus</b><br/>Allows skill focus to decrease.', this)" onclick="sendMessage('action=skillset&type=decrease&skill=woodcutting')" onmouseout="clearDesc(this)" src="icon_minus.png"/>
+        </div>
+
+
+        <!-- Wood Panel (Woodworking) -->
+        <div class="actions" id="woodPanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Lumberjack</b><br/>Chop down a nearby tree with an axe.', this)" onclick="sendMessage('action=lumberjack')" onmouseout="clearDesc(this)"><img src="sWoodLumberjack.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Chop</b><br/>Chop a nearby log into lumber with an axe.', this)" onclick="sendMessage('action=chop')" onmouseout="clearDesc(this)"><img src="sWoodChop.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Uproot</b><br/>Uproot a nearby stump with a shovel.', this)" onclick="sendMessage('action=uproot')" onmouseout="clearDesc(this)"><img src="sWoodUproot.png"/></button>
+			<br>
+			<button class="imgBtn" onmouseover="showDesc('<b>Craft</b><br/>Create wooden tools and items from logs and lumber.', this)" onclick="sendMessage('action=craft')" onmouseout="clearDesc(this)"><img src="sWoodCraft.png"/></button>
+        </div>
+
+
+        <!-- Stone Panel (Stoneworking) -->
+        <div class="actions" id="stonePanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Sculpt</b><br/>Create stone tools and items from boulders and stone.', this)" onclick="sendMessage('action=sculpt')" onmouseout="clearDesc(this)"><img src="sStoneSculpt.png"/></button>
+        </div>
+
+
+        <!-- Brick Panel (Brickworking) -->
+        <div class="actions" id="brickPanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Fill</b><br/>Fill brickracks with clay.', this)" onclick="sendMessage('action=fill')" onmouseout="clearDesc(this)"><img src="sBrickFill.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Remove</b><br/>Remove bricks from brickracks.', this)" onclick="sendMessage('action=remove')" onmouseout="clearDesc(this)"><img src="sBrickRemove.png"/></button>
+			<br>
+			<button class="imgBtn" onmouseover="showDesc('<b>Build</b><br/>Build constructions with bricks.', this)" onclick="sendMessage('action=brickbuild')" onmouseout="clearDesc(this)"><img src="sBrickBuild.png"/></button>
+        </div>
+
+
+        <!-- Metal Panel (Metalworking) -->
+        <div class="actions" id="metalPanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Mine</b><br/>Mine ore and other minerals from rock.', this)" onclick="sendMessage('action=mine')" onmouseout="clearDesc(this)"><img src="sMetalMine.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Refine</b><br/>Refine ores and other minerals into more usable forms.', this)" onclick="sendMessage('action=refine')" onmouseout="clearDesc(this)"><img src="sMetalRefine.png"/></button>
+			<br>
+			<button class="imgBtn" onmouseover="showDesc('<b>Forge</b><br/>Create metal equipment and items from ore and metal bars.', this)" onclick="sendMessage('action=forge')" onmouseout="clearDesc(this)"><img src="sMetalForge.png"/></button>
+        </div>
+
+
+        <div class="desc" id="descPanel"></div>
+
+      </div>
+
+	  <br/>
+      Health:
+      <div class="rect" id="rectangle" style="width:207; height:13; background-color:#A00; border:2 solid #5A4334;"></div>
+      <div class="spacer" style="height:4px; font-size:4px"></div>
+      Energy:
+      <div class="rect" id="rectangle" style="width:207; height:13; background-color:#00A; border:2 solid #5A4334;"></div>
+      <div class="spacer" style="height:4px; font-size:4px"></div>
+      Weight:
+      26/2000
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,697 @@
+<html>
+<head><title>DM HTML Library</title></head>
+<body>
+
+<h1>The DM HTML Library</h1>
+
+<p>You can use HTML forms to obtain information from users in a graphical
+dialogue.  To retrieve a single piece of information, one normally uses
+input(), but a long chain of prompts can become irksome to the user.  The
+solution is to create a form containing entries for each item.
+
+<p>Programs that generate HTML (or any other code for that matter) often
+appear rather noisy.  This programming library, if it achieves anything,
+helps to elliminate much of that noise, so your code doesn't look like a
+garbled superposition of two languages arguing with each other over who
+controls the punctuation.
+
+
+<h2>Contents</h2>
+<dl>
+<dt><a href=#tutorial>Tutorial</a></dt>
+<dd>
+   <dl compact>
+   <dt><a href=#defining>Defining a Form</a></dt>
+   <dt><a href=#displaying>Displaying a Form</a></dt>
+   <dt><a href=#processing>Processing a Form</a></dt>
+   <dt><a href=#initializing>Initializing a Form</a></dt>
+   <dt><a href=#interface>Basic Interface Elements</a></dt>
+   <dt><a href=#layout>Form Layout</a></dt>
+   </dl>
+</dd>
+<dt><a href=#reference>Reference</a></dt>
+<dd>
+   <dl compact>
+	<dt><a href=#var/udef>User Defined Interface Variables</a></dt>
+	<dd>
+      <dl compact>
+      <dt><a href=#var/udef_iface>Interface Types</a></dt>
+      <dt><a href=#var/udef_size>Display Size</a></dt>
+      <dt><a href=#var/udef_maxlen>Maximum Length</a></dt>
+      <dt><a href=#var/udef_values>Possible Values</a></dt>
+		<dt><a href=#var/udef_label>Form Label</a></dt>
+		<dt><a href=#var/udef_hidden>Hidden Variable</a></dt>
+		<dt><a href=#var/udef_wrap>Wrapping</a></dt>
+		<dt><a href=#var/udef_extra>Extra Input Parameters</a></dt>
+      </dl>
+   </dd>
+   <dt><a href=#var/idef>Pre-Defined Interface Variables</a></dt>
+   <dd>
+      <dl compact>
+      <dt><a href=#var/submit>submit</a></dt>
+	   <dt><a href=#var/reset>reset</a></dt>
+      </dl>
+   </dd>
+   <dt><a href=#var/other>Non-Interface Variables</a></dt>
+   <dd>
+      <dl compact>
+      <dt><a href=#var/other/form_reusable>Reusable Forms</a></dt>
+      <dt><a href=#var/other/form_title>Form Title</a></dt>
+		<dt><a href=#var/other/form_cgi_mode>CGI Mode</a></dt>
+		<dt><a href=#var/other/form_method>Form Submission Method</a></dt>
+		<dt><a href=#var/other/form_default_maxlen>Default Input Field Maximum Length</a></dt>
+		<dt><a href=#var/other/form_default_size>Default Input Field Size</a></dt>
+		<dt><a href=#var/other/form_sub_path>Sub Path</a></dt>
+		<dt><a href=#var/other/form_window>Form Window</a></dt>
+		<dt><a href=#var/other/form_extra>Extra Form Parameters</a></dt>
+      </dl>
+   </dd>
+   <dt><a href=#proc/DisplayForm>DisplayForm()</a></dt>
+   <dt><a href=#proc/HtmlLayout>HtmlLayout()</a></dt>
+   <dt><a href=#proc/Initialize>Initialize()</a></dt>
+   <dt><a href=#proc/ProcessForm>ProcessForm()</a></dt>
+   <dt><a href=#proc/GetSelfUrl>GetSelfUrl()</a></dt>
+   </dl>
+</dd>
+<dt><a href=#CGI>CGI Forms</a></dt>
+</dl>
+
+
+<a name=tutorial>
+<h2>Tutorial</h2>
+
+<p>You define a form by deriving your own from the base <code>/Form</code>
+type.  The variables you define become entry fields in the form.  These are
+called interface elements.
+
+<a name=defining>
+<h3>Defining the Form</h3>
+
+<p>Here is a very simple form definition.
+
+<xmp>
+#include "html/form.dm"
+Form/Newbie
+   var
+      name
+      gender
+      race
+</xmp>
+
+<p>That defines a form type <code>/Form/Newbie</code> with three fields:
+name, gender, and race.
+
+<a name=displaying>
+<h3>Displaying the Form</h3>
+
+<p>You can submit this form to a player by calling
+<code>DisplayForm()</code>.
+
+<xmp>
+mob/verb/myinfo()
+   var/Form/Newbie/frm = new()
+   frm.DisplayForm()  //send usr the form
+</xmp>
+
+<p>If you try that, you should see the form pop up in the browser window
+when you use the <code>myinfo</code> verb.
+
+<p>There are several things to note at this point.  One is that the form
+doesn't do anything.  Another is that all three fields use the same type of
+interface element--a text box.  Lastly, the form always starts out blank.
+The following examples will rectify these problems.
+
+<a name=processing>
+<h3>Processing the Form</h3>
+
+<p>When the form is complete, its <code>ProcessForm()</code> procedure is
+called.  You can define it to do whatever you want.
+
+<xmp>
+Form/Newbie
+   proc
+      ProcessForm()
+         usr.name = name
+         usr.gender = gender
+         usr.race = race
+         usr << browse("You have been modified!")
+mob/var
+   race //human, ogre, or jellyfish
+</xmp>
+
+<p>It is a good idea to output something to the browser acknowledging
+receipt of the form.  Otherwise, the user is left feeling like nothing
+happened.
+
+<a name=initializing>
+<h3>Initializing the Form</h3>
+
+<p>In the same way that the form variables were accessed in
+<code>ProcessForm()</code>, they can be initialized in
+<code>Initialize()</code>.  This is automaitcally called by
+<code>DisplayForm</code> before generating the form's HTML.
+
+<xmp>
+Form/Newbie/Initialize()
+   name = usr.name
+   gender = usr.gender
+   race = usr.race
+</xmp>
+
+<p>Of course, you are free to initialize the form variables in the same
+place where you create the form.  Do whichever is more convenient.
+
+<a name=interface>
+<h3>Basic Inteface Elements</h3>
+
+<p>A text-box is a good interface element for entering the name, but it is
+not so good for race and gender, where the possible values are restricted.
+By telling the form to restrict the range of values the user may enter, it
+will automatically use a more appropriate interface element.
+
+<xmp>
+Form/Newbie
+   var
+      name
+
+      gender
+      gender_1 = "male"
+      gender_2 = "female"
+      gender_3 = "neuter"
+
+      race
+      race_values = list("human","ogre","jellyfish")
+</xmp>
+
+<p>Notice the two different techniques for limiting the input values.  In
+the case of gender, we enumerated three possibilities by declaring variables
+<code>gender_1</code>, <code>gender_2</code>, and <code>gender_3</code>.
+That produces a <em>radio toggle</em> interface element.  The user can turn
+on any one and only one of the three genders.
+
+<p>The second technique for restricting the range of input is with a list of
+values.  By defining <code>race_values</code>, we told the form to use a
+<em>selection list</em> interface element.  The user can select one item
+from the list.
+
+<p>There are other types of interface elements.  You can learn about those
+in the reference section.  These basic ones will satisfy most of your
+needs.
+
+<a name=layout>
+<h3>Form Layout</h3>
+
+<p>The layout of your form has so far been automatically generated.  You can
+design the html yourself by overriding the <code>HtmlLayout()</code> procedure.
+
+<xmp>
+Form/Newbie
+   proc
+      HtmlLayout() return \
+{"
+Your name: [name] <br>
+Your gender:      <br>
+[gender_1] male   <br>
+[gender_2] female <br>
+[gender_3] other  <br>
+Your race: [race] <br>
+[submit]
+"}
+</xmp>
+
+<p>Wherever you want an interface element to appear, you simply embed the
+associated variable.  (Before <code>HtmlLayout()</code> is called, each of the
+variables is automatically assigned to the html code that produces the
+desired interface element.)  The special <var>submit</var> variable produces
+a button that submits the form.  There is also a <var>reset</var> variable
+so the user can undo changes and start over.
+
+<p>Since this is an HTML document, you have to use &lt;br&gt; wherever you
+want a line break.  For convenience, we did use a text document (curly
+braces around the double quotes), so newlines could be embedded directly in the
+text, but the browser treates those just like spaces.  You can use any other
+HTML tricks you want in order to control the appearance.
+
+<a name=reference>
+<h2>Reference</h2>
+
+<p>A form has three basic components: interface variables, graphical layout,
+and a processing procedure.  The details of these are described in the
+following reference sections.
+
+<a name=var/udef>
+<h3>User Defined Interface Variables</h3>
+
+<p>A form is defined by the variables it contains.  Each interface variable
+represents a piece of information that the user can view and modify.  There
+are also non-interface variables that control the properties of the
+interface elements or that you define for your own purposes.
+
+<p>The control variables are described in the following sections.
+
+<a name=var/udef_iface>
+<h4>Interface Types</h4>
+
+<p>By default, each variable you define creates a corresponding text box
+interface ellement.  You can select a different interface element by
+defining an <code>_interface</code> control variable.
+
+<xmp>
+Form/Login
+   var
+      name
+      password
+      password_interface = PASSWORD
+</xmp>
+
+<p>As the above example demonstrates, the control variable is defined with
+the same base name as the interface variable with <code>_interface</code>
+appended.
+
+<p>In this particular example, the PASSWORD interface type was used.  That
+prevents the user's input from being displayed on the screen.  This and the
+other interface types are described below.
+
+<dl>
+
+<dt>TEXT</dt> <dd>This is the default interface element.  It presents a text
+box in which the user may edit a short text string.  Note that this may be
+used for editing numbers as well as text.  If the input type of the variable
+is numeric (achieved by initializing the variable to a number), the input
+from the text box will be automatically converted to a number for you.</dd>
+
+<dt>PASSWORD</dt> <dd>This is just like TEXT, but the contents are not
+visible on the screen.</dd>
+
+<dt>TEXTAREA</dt> <dd>Like a text box, this allows the user to input any
+value.  It may be used for editing multi-line messages.  This is the default
+interface element if you set the <code>_size</code> control variable to a
+value of the form "10x30" where 10 is the number of rows and 30 is the
+number of columns to display at one time.</dd>
+
+<dt>SELECT</dt> <dd>A selection list restricts the user to a choice of one
+value from a list.  This is the default interface element if you set the
+<code>_values</code> control variable.</dd>
+
+<dt>MULTI_SELECT</dt> <dd>This is just like SELECT, except the user may
+select more than one item from the list.</dd>
+
+<dt>CHECKBOX</dt> <dd>The user may turn this interface element on or off.
+When it is off, the variable has a false value (like null) and when it is
+on, it has a true value (like 1).</dd>
+
+<dt>CHECKLIST</dt> <dd>This produces a list of check boxes, each with a
+different corresponding value.  The functionality is similar to
+MULTI_SELECT, but you have control over how each item in the list is
+displayed.  This interface behaves a little differently from the others
+during HtmlLayout().  The value of the variable is a list of the values you
+assigned to the <code>_values</code> control variable and each of these has
+an associated html value.  You access the html by indexing the interface
+variable with each of the possible values.  When the form is processed, the
+interface variable will contain a list of the values checked by the
+user.</dd>
+
+<dt>RADIO</dt> <dd>A radio toggle lets the user pick one of a number of
+options.  You don't use this directly but instead define numbered control
+variables for each option (<code>_1</code>, <code>_2</code>,
+<code>_3</code>, and so on).  You may assign values to each of these.  If
+you do not, the option number will be used.</dd>
+
+<dt>RADIO_LIST</dt> <dd>This is like a CHECKLIST except the user may only
+choose one item from the list.  The choices are assigned to
+<code>_values</code> and the user's response is assigned to the interface
+variable.  You access the html by indexing the interface variable with each
+of the possible values, just as with CHECKLIST.
+
+<a name=var/udef_iface/HIDDEN></a> <dt>HIDDEN</dt> <dd>This allows you to
+hide an interface variable from the user.  You might want to do that when
+the form is one of a sequence of dialogues and you need to retain
+information from previous steps as you move along.  Like any other interface
+type, you have to embed the variable in the html if you override
+HtmlLayout().  To have the variable automatically embedded, use the <a
+href=#var/udef_hidden>_hidden</a> control variable instead.</dd>
+
+<dt>BUTTON</dt> <dd>This generates a button on the form.  When the user
+clicks it, your procedure (called <var>varname</var>Click()) is called.  The
+value of this variable (when DisplayForm() is called) is displayed on the
+button face.  If the value is null, the name of the variable is used
+instead.</dd>
+
+<dt>PROMPT</dt> <dd>Like BUTTON, this produces a button on the form.  Your
+<var>varname</var>Click() procedure is called and the return value is
+assigned to this variable.  That allows you to prompt the user for anything
+you want.  The most common prompts have special interface elements that do
+it for you.</dd>
+
+<dt>PROMPT_FOR_ICON</dt> <dd>This is like PROMPT, except you don't define a
+Click() proc.  It does the prompting for you.  The icon file uploaded by the
+user gets assigned to the interface variable.</dd>
+
+<dt>PROMPT_FOR_SOUND</dt> <dd>This prompts the user for a sound file to
+upload.</dd>
+
+<dt>PROMPT_FOR_FILE</dt> <dd>This prompts the user for any file to upload.
+This works in CGI mode (through a web browser) as well as in Dream Seeker.
+The generic PROMPT and BUTTON interfaces do not work in CGI mode, so if you
+want the user to upload a file, do it through this specific interface.</dd>
+
+<dt>SUB_FORM</dt> <dd>This is a variable containing another form object.  It
+is the default interface type if you initialize the variable to a new
+instance of a form (which you have to do anyway for it to work).  The
+sub-form is embedded in the main form and is submitted and processed as part
+of a single HTML form.</dd>
+
+</dl>
+
+<a name=var/udef_size>
+<h4>Display Size</h4>
+
+<p>The <code>_size</code> control variable specifies the amount of data to
+display at one time (without scrolling) in the interface element.  It does
+not effect the maximum length of data that the user may enter.
+
+<p>With a text box interface element, this specifies the number of
+characters that may be visible at one time.  The default behavior depends on
+the browser.  You can set your own default using <a
+href=#var/other/form_default_size>form_default_size</a>.
+
+<p>For a TEXTAREA interface element, the size specifies the number of rows
+to display.  In addition, the number of columns may be set using the format
+"30x10" where 30 is the number of columns and 10 is the number of rows.  In
+that case, the interface element defaults to TEXTAREA.
+
+<a name=var/udef_maxlen>
+<h4>Maximum Length</h4>
+
+<p>The <code>_maxlen</code> control variable specifies the maximum number of
+characters that the user may enter.  If none is specified, <a
+href=#var/other/form_default_maxlen>form_default_maxlen</a> will be used.
+If that is not specified, no limit will be applied.
+
+<a name=var/udef_values>
+<h4>Possible Values</h4>
+
+<p>The <code>_values</code> control variable specifies a list of values to
+display in a selection list.  If it is defined, the interface element
+defaults to SELECT.
+
+<a name=var/udef_validate>
+<h4>Validate Input</h4>
+
+<p>The <code>_validate</code> control variable determines whether it is an
+error to receive input from the user that is not in the values list.  It is
+on by default.
+
+<a name=var/udef_label>
+<h4>Form Label</h4>
+
+<p>The <code>_label</code> control variable is used by the default form
+layout generator to label the interface element.  If no label is specified,
+the variable name (capitalized) is used.
+
+<a name=var/udef_hidden>
+<h4>Hidden Variable</h4>
+
+<p>The <code>_hidden</code> control variable causes the variable to be
+automatically stored in the form but with no visible interface.  (Assign
+_hidden to a true value.)  This is a similar effect to the <a
+href=#var/udef_iface/HIDDEN>HIDDEN</a> interface type, except HIDDEN variables
+are not automatically embedded in the form if you override HtmlLayout().
+
+<a name=var/udef_wrap>
+<h4>Wrapping</h4>
+
+<p>The <code>_wrap</code> control variable may be used to configure the text
+wrapping in a textarea edit box.  It may be assigned to any of the following:
+
+<dl compact>
+<dt>NO_WRAP    <dd>no wrapping of text
+<dt>SOFT_WRAP  <dd>text is wrapped but newlines are not inserted into the result
+<dt>HARD_WRAP  <dd>text is wrapped and newlines are inserted where it wraps
+</dl>
+
+<a name=var/udef_extra>
+<h4>Extra Input Parameters</h4>
+
+<p>If you need to insert some special html code into the input tag for an
+interface element, you may do so with the <code>_extra</code> control
+variable.  A common example of this would be the insertion of <a
+href=http://www.javascript.com>Java Script</a> code.
+
+<h5>Example:</h5>
+<xmp>
+Form/MyForm
+	var
+		submit_extra = {"OnClick='return confirm("Are you sure?");'"}
+</xmp>
+
+<p>See also, <a href=var/other/form_extra>form_extra</a>.
+
+<a name=var/idef>
+<h3>Pre-Defined Interface Variables</h3>
+
+<p>In addition to the interface elements defined above, there are two
+more: the submit and reset buttons.  These are pre-defined for you.
+
+<dl>
+
+<a name=var/submit></a>
+<dt>submit</dt>
+
+<dd>The submit interface variable is used to place the submit button on the
+form.  You can assign a different value to this variable to change the text
+displayed on the button face.  The default is "Submit".  The special control
+variable <code>form_url</code> may be set to the URL that you want to
+receive the submitted form.  This defaults to the form object used to
+display the form.</dd>
+
+<a name=var/reset></a>
+<dt>reset</dt>
+
+<dd>The reset interface variable is used to place a reset button on the
+form.  When the user pushes the reset button, the displayed form is restored
+to its initial state so the user can start over.  You can assign a different
+value to this variable to change the text displayed on the button face.  The
+default is "Reset".  If you set it to null, the form will not contain a
+reset button.</dd>
+
+</dl>
+
+<a name=var/other>
+<h3>Non-Interface Variables</h3>
+
+<p>In addition to interface variables and their associated control
+variables, you may have reason to define other variables that are used for
+your own purposes.  These should be marked as such by defining them to be
+<code>global</code>, <code>const</code>, or <code>tmp</code>.  Such
+variables will be ignored when constructing the form interface.
+
+<a name=var/other/form_reusable>
+<h4>Reusable Forms</h4>
+
+<p>One such pre-defined variable is the <code>form_reusable</code>
+variable.  It defaults to a false value, indicating that you only intend the
+user to submit the form once after each call to <code>DisplayForm()</code>.
+
+<p>If you want the user to be able to repeatedly submit the form, you should
+set this parameter to a true value (like 1).
+
+<a name=var/other/form_title>
+<h4>Form Title</h4>
+
+<p>Another form control variable is <code>form_title</code>.  It is empty by
+default, but you can set it to whatever title you wish the form to have.
+
+<a name=var/other/form_cgi_mode>
+<h4>CGI Mode</h4>
+
+<p>The <code>form_cgi_mode</code> control variable can be used to turn on
+CGI mode.  This is done for you automatically if you include the <a
+href=CGI.html>html/CGI.dm</a> library.
+
+<p>The main difference between normal mode and CGI mode is that form objects
+do not persist.  When you display a form to the user using a form object,
+that same form object is normally the one which processes the response.
+That allows the form to retain state information, such as the result of
+button clicks (custom prompts) and so on.
+
+<p>In CGI mode, the original form object is destroyed and a new one is
+created later when the user responds.  While this elliminates the
+possibility of storing state information directly in the form object, it has
+the advantage of not leaving around a dangling form object in case the user
+never does respond.  If you don't need to use buttons or store any other
+persistent information in the form, this is an option for you.  If you want
+your forms to be used on the web (as a CGI program), they will ultimately
+have to work this way anyway.
+
+<p>Note that if you do include the CGI library and you are merely using the
+forms in BYOND (not on the web) then you can still have specific forms
+operate in non-CGI mode by assigning their form_cgi_mode back to 0.
+
+<a name=var/other/form_method>
+<h4>Form Submission Method</h4>
+
+<p>The <code>form_method</code> variable controls the method used by the web
+browser to submit the form results.  In BYOND mode (ie in Dream Seeker),
+this must be "get".  When operating as a <a href=CGI.html>CGI</a> program
+through a web server, it can also be "post".
+
+<p>In a CGI program, the "get" method is usually preferred for cases in
+which the result of the query is a cacheable response.  In other words, the
+web browser can save the result and display it again from memory when the
+user submits the same form data.  The "post" method is for situations in
+which processing the form has a side-effect other than simply returning
+results to the user.  In that case, the web browser cannot simply short-cut
+the submission and display previous results.
+
+<a name=var/other/form_default_maxlen>
+<h4>Default Input Field Maximum Length</h4>
+
+<p>The <code>form_default_maxlen</code> variable sets the default maximum
+length for input fields when none is supplied.  If you do not specify a
+maximum input length, no limit will be placed on the length of data the user
+may submit.  The numerical value is the number of characters that will be
+allowed.
+
+<a name=var/other/form_default_size>
+<h4>Default Input Field Size</h4>
+
+<p>The <code>form_default_size</code> variable sets the default input field
+display size.  If you do not specify a field size, the browser will choose
+one for you.  The numerical value is the number of characters that will be
+displayed.
+
+<a name=var/other/form_sub_path>
+<h4>Sub Path</h4>
+
+<p>The <code>form_sub_path</code> variable contains extra path information
+in the form's URL, which is tagged on after the <code>.dmb</code> name.  Be
+careful if you use this, because the extra path information is included in
+the default base href when you output an html page in CGI mode.
+
+<a name=var/other/form_window>
+<h4>Form Window</h4>
+
+<p>The <code>form_window</code> variable contains <a href =
+http://www.byond.com/docs/ref/info.html#/proc/browse>browse() </a> window
+parameters.  This can be used to make the form popup in a new window, rather
+than the default behavior, which is to appear in the browser panel on the main
+Dream Seeker window.  This variable has no effect in CGI mode.
+
+<a name=var/other/form_extra>
+<h4>Extra Form Parameters</h4>
+
+<p>The contents of the <code>form_extra</code> variable are inserted into the
+form tag in the html output.  You could use this to insert extra code, such as
+Java Script that is not supported directly by the other form variables.
+
+<h5>Example:</h5>
+<xmp>
+Form/MyForm
+	form_extra = {"OnSubmit='return confirm("Are you sure?");'"}
+</xmp>
+
+<p>See also, <a href=var/udef_extra>_extra</a> control variable.
+
+<a name=proc/DisplayForm>
+<h3>DisplayForm(mob/U = usr)</h3>
+
+<p>The form's <code>DisplayForm()</code> procedure is used to send the form
+to a player.  By default, it is sent to <code>usr</code>, but you can pass
+in any mob reference you like.
+
+<p>You should create a new instance of the form for each call to
+<code>DisplayForm()</code>, unless you always wait until the form has been
+completely processed before displaying it again.
+
+<a name=proc/Initialize>
+<h3>Initialize()</h3>
+
+<p>The form's <code>Initialize()</code> procedure is called by
+<code>DisplayForm()</code> before generating the HTML.  This is to allow you
+to initialize form variables.  You do not have to do initialization of form
+variables here; it is simply defined for your convenience.
+
+<a name=proc/HtmlLayout>
+<h3>HtmlLayout()</h3>
+
+<p>You define the <code>HtmlLayout()</code> procedure to return the HTML text
+describing the form.  The default procedure simply displays the name
+of each interface variable followed by the interface element.  (You can also
+use the <a href=#var/udef_label>_label</a> control variable to specify an
+alternate prompt to display.)
+
+<p>Perhaps the slickest part of the Form programming interface is how you
+embed each interface element in your form layout text.  Before
+<code>HtmlLayout()</code> is called, each interface variable is automatically
+assigned to the corresponding HTML element.  All you have to do is insert
+the variable into the layout text.  That elliminates most of the noisy HTML
+so you can see what you are doing.
+
+<p>If you are familiar with HTML, you may have noticed that the form layout
+does not include the actual <code>&ls;FORM&gt;</code> element.  That is
+automatically generated for you before the form is submitted to the user.
+
+<a name=proc/ProcessForm>
+<h3>ProcessForm()</h3>
+
+<p>This procedure is called when the user submits the form.  Basic checks
+are performed first to make sure the form was indeed displayed to the user
+who is submitting it and that the input conforms to the specified limits.
+After that, <code>ProcessForm()</code> is called and you can act upon the
+user's input.
+
+<p>If the form is reusable, there may be multiple calls to
+<code>ProcessForm()</code> for each call to <code>DisplayForm()</code>.
+Otherwise, there will only be one.
+
+<a name=proc/GetSelfUrl>
+<h3>GetSelfUrl(mob/U = usr)</h3>
+
+<p>This procedure returns a URL text string containing all of the form
+variables.  It may be used, for example, to generate a hyperlink that causes
+the form to be processed.  Currently, prompt variables are not included in
+the URL.
+
+<a name=CGI>
+<h2>CGI Forms</h2>
+
+<p>This form library has been designed to work transparently in BYOND or CGI
+mode, as much as that is possible.  By including the CGI.dm library, you can
+turn your <code>.dmb</code> into a CGI program to be executed by a web
+server.  The purpose of doing so is to generate dynamic web pages and to
+process user input via forms.
+
+<p>More information about using forms in CGI mode will be provided here soon.
+A key ellement will be having a web server that is configured to run
+<code>.dmb</code> files as CGI programs.  The new hosting machine called
+'Polaris' will be available soon for that purpose.
+
+<p>Here is a sneak preview.  The following example produces a CGI program
+that asks the user for a name and then issues a greeting using that name.
+It only has one line specific to CGI mode so that the server knows which
+form to display by default.
+
+<xmp>
+#include "html/CGI.dm"
+#include "html/form.dm"
+
+CGI/default_form = /Form/Hello
+
+Form/Hello
+   var
+      name
+   Initialize()
+      name = usr.name
+   ProcessForm()
+      usr << "Hello, [name]!"
+</xmp>
+
+<p>As you can see, the calling of <code>DisplayForm()</code> and
+<code>ProcessForm()</code> is all handled for you by the CGI object.  Not
+only that but generation of the HTTP header and error logging are handled
+behind the scenes with convenient defaults.  That leaves you with a tight
+little piece of code!
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <title>Survival Command Panel</title>
+    <style type="text/css">
+      <!--
+
+      BODY {
+      	background-color: #080;
+      	background-image: url("sLeaves.png");
+      	font-family: tahoma;
+      	color: #FE6;
+      }
+
+      .imgBtn {
+      	border: 2 outset #FEA;
+      	background-color: #FEA;
+      	height: 36px;
+      	width: 36px;
+      	margin: 2px 3px 2px 3px;
+      }
+
+      .folder {
+      	border: 2 solid #5A4334;
+      	background-color: #FEA;
+      	background-image: url("sPaper.png");
+      	padding: 3px 3px 3px 3px;
+      	color: #040;
+      }
+
+      .folder .skills, .folder .desc {
+      	border: 1 inset #FEA;
+      	background-color: #6A2;
+      	background-image: url("sLeaves2.png");
+      	padding: 5px 5px 5px 5px;
+      	text-align: center;
+      }
+
+      .folder .skills {
+        height: 200px;
+        display: none;
+      }
+
+      .folder .desc {
+      	height: 6em;
+      	color: #FFF;
+      	margin-left: 10px;
+      	margin-right: 10px;
+      	padding: 0px 5px 0px 5px;
+      	font-size: 10px;
+      }
+
+      -->
+    </style>
+    <script type="text/javascript" src="sActions.js"></script> <!-- JavaScript Commands -->
+  </head>
+  <body onload="killFocus()" onmouseup="killFocus()">
+    <div style="width:200; height:407; position:absolute; border:0 solid #000;">
+
+      <div class="folder">
+        &nbsp; <b id="tabTitle">Category</b>
+
+        <div class="skills" id="Panel" style="display: block">
+			<button class="imgBtn" onmouseover="showDesc('<b>Fill</b><br/>Fill brickracks with clay.', this)" onclick="sendMessage('action=fill')" onmouseout="clearDesc(this)"><img src="sBrickFill.png"/></button>
+        </div>
+
+        <div class="actions" id="personPanel">
+			<button class="imgBtn" onmouseover="showDesc('<b>Pick Up</b><br/>Picks up a nearby item.', this)" onclick="sendMessage('action=get')" onmouseout="clearDesc(this)"><img src="sPersonPickup.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Drop</b><br/>Drops an item from your inventory.', this)" onclick="sendMessage('action=drop')" onmouseout="clearDesc(this)"><img src="sPersonDrop.png"/></button>
+			<br>
+			<button class="imgBtn" onmouseover="showDesc('<b>Inventory</b><br/>Displays the items you are posessing.', this)" onclick="sendMessage('action=inventory')" onmouseout="clearDesc(this)"><img src="sPersonInventory.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Equipment</b><br/>Displays the weapons and armor you posess.', this)" onclick="sendMessage('action=equipment')" onmouseout="clearDesc(this)"><img src="sPersonEquipment.png"/></button>
+			<button class="imgBtn" onmouseover="showDesc('<b>Skills</b><br/>Displays your skill points.', this)" onclick="sendMessage('action=skills')" onmouseout="clearDesc(this)"><img src="sPersonSkills.png"/></button>
+        </div>
+
+
+
+        <div class="desc" id="descPanel"></div>
+
+      </div>
+
+    </div>
+  </body>
+</html>

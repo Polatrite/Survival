@@ -1,0 +1,1 @@
+Shadowdarke.sd_DynamicAreaLighting version=7

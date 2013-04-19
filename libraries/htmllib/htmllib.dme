@@ -1,0 +1,12 @@
+// DM Environment file for htmllib.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+
+// BEGIN_PAINTER_DIR
+// END_PAINTER_DIR
+
+// BEGIN_FILE_DIR
+// END_FILE_DIR
+
+// BEGIN_INCLUDE
+#include "htmllib.dm"
+// END_INCLUDE
