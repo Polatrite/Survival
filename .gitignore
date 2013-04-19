@@ -1,0 +1,14 @@
+# Built game files
+*.dmb
+*.rsc
+*.exe
+
+# Temporary IDE files
+*.dyn
+*.int
+
+# Game runtime files
+automap.txt
+logs/
+players/
+backups/
