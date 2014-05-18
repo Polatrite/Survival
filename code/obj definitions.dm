@@ -143,6 +143,10 @@ obj
 		landscape
 			stackable = 0
 			layer = LAYER_TURF_TOP
+
+			var
+				towable = FALSE
+
 			verb
 				hide()
 					set src in view(1)
@@ -192,8 +196,12 @@ obj
 				icon = 'trees.dmi'
 				icon_state = "palm log"
 				value1 = 5
+				towable = TRUE
 				Click()
-					v_chop(usr, src)
+					if(locate(/obj/game/structure/rip_saw) in adj(src))
+						return v_chop(usr, src)
+					return v_tow(usr, src)
+					//v_chop(usr, src)
 				verb
 					chop()
 						set src in view(1)

@@ -4,3 +4,10 @@ atom
 	var
 		condition = -1
 		timer = -1
+
+
+	movable
+		var
+			tmp/atom/movable/followers[] = list()
+			tmp/atom/movable/following
+

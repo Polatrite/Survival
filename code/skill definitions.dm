@@ -97,9 +97,6 @@ skill
 					focusexp += 500*/
 			return ret
 
-	surrvival
-		name = "survival"
-
 	woodworking
 		name = "woodworking"
 	culinary_arts

@@ -320,7 +320,7 @@ mob/game
 				if("fish-reel")
 					delay = max(5, 10 - GetSkillMod("fishing", 2) + extra)
 				if("lumberjack")
-					delay = max(10, 30 - GetSkillMod("woodcutting", 8) + extra)
+					delay = max(1, 3 - GetSkillMod("woodcutting", 8) + extra)
 				if("chop")
 					delay = max(10, 20 - GetSkillMod("woodcutting", 10) + extra)
 				if("culinary arts")
