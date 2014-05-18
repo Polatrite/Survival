@@ -34,7 +34,7 @@ mob/game
 					m.OutputTo("<B><font color = \"#00A000\">[msg2]", CHAN_PUBLIC)
 
 	proc
-		Music(action)
+		/*Music(action)
 			if(!current_song)
 				PlayMusic(GetMusic())
 			switch(action)
@@ -103,7 +103,7 @@ mob/game
 			for(var/S in songs)
 				if(S == current_song || S == previous_song)
 					songs -= S
-			return songs
+			return songs*/
 
 		UpdateHP()
 			if(hp_bar)
@@ -199,13 +199,13 @@ mob/game
 			client.primary_weather.icon = null
 
 		Tick()
-			if(key)
+			/*if(key)
 				if(current_song_duration)
 					current_song_duration -= 1
 				if(current_song_duration <= 0)
 					if(current_song)
 						Music(MUSIC_STOP)
-					Music(999)
+					Music(999)*/
 
 		TickSecond() // one second
 			spawn(10)
@@ -282,7 +282,7 @@ mob/game
 						if(recent_kills[x] <= 0)
 							recent_kills -= x
 				if(hp < maxhp/4 || stamina < 150)
-					src << sound('low_stats.wav', wait=0, channel=2, volume=volume)
+					//src << sound('low_stats.wav', wait=0, channel=2, volume=volume)
 					var/obj/system/flick/O = new (delay=8)
 					O.screen_loc = "NORTH-1,EAST-1"
 					O.icon = 'GUI.dmi'

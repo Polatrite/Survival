@@ -79,7 +79,7 @@ mob/game
 
 
 
-		playmusic(env as num)
+		/*playmusic(env as num)
 			set hidden = 1
 			Music(env)
 
@@ -93,7 +93,7 @@ mob/game
 				S.status = SOUND_UPDATE
 				src << S
 				world << S.volume
-				sleep(2)
+				sleep(2)*/
 
 		/*ibricku()
 			set src in world

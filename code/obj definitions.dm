@@ -167,7 +167,7 @@ obj
 				Click()
 					if(usr in adj(src))
 						usr:Transfer(locate(usr.x,usr.y,usr.z-1))
-						usr:ChangeMusicZone()
+						//usr:ChangeMusicZone()
 						usr:WeatherSet(weather_type)
 			hole
 				icon = 'hole.dmi'
@@ -175,7 +175,7 @@ obj
 					if(istype(M))
 						sleep(1)
 						M:Transfer(locate(M.x,M.y,M.z+1))
-						M:ChangeMusicZone()
+						//M:ChangeMusicZone()
 						usr:WeatherSet(weather_type)
 			tree
 				icon = 'trees.dmi'

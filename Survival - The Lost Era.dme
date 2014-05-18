@@ -6,9 +6,6 @@
 // END_INTERNALS
 // BEGIN_FILE_DIR
 #define FILE_DIR .
-#define FILE_DIR "code"
-#define FILE_DIR "code/objects"
-#define FILE_DIR "code/skills"
 #define FILE_DIR "graphics"
 #define FILE_DIR "graphics/buildings"
 #define FILE_DIR "graphics/caves"
@@ -27,23 +24,15 @@
 #define FILE_DIR "graphics/ocean"
 #define FILE_DIR "graphics/weather"
 #define FILE_DIR "libraries"
-#define FILE_DIR "libraries/basecamp"
 #define FILE_DIR "libraries/characterhandling"
 #define FILE_DIR "libraries/characterhandling/demo"
 #define FILE_DIR "libraries/dmifontsplus"
-#define FILE_DIR "libraries/dmp_writer"
-#define FILE_DIR "libraries/htmllib"
-#define FILE_DIR "libraries/quickadmin"
 #define FILE_DIR "libraries/s_damage"
 #define FILE_DIR "libraries/s_damage/icons"
 #define FILE_DIR "libraries/sd_dynamicarealighting"
-#define FILE_DIR "libraries/soluscomm"
-#define FILE_DIR "libraries/soluslog"
-#define FILE_DIR "sounds"
 #define FILE_DIR "SurvivalHTML"
 #define FILE_DIR "SurvivalResources1"
 #define FILE_DIR "SurvivalResources2"
-#define FILE_DIR "turfs"
 // END_FILE_DIR
 
 #define FILE_DIR .

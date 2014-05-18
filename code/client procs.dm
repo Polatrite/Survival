@@ -52,8 +52,8 @@ client
 				while(vol > 100 || vol < 0 || !isnum(vol))
 					vol = input("Set the new volume percentage.","Volume", mob:volume) as num
 				mob:volume = vol
-				mob:Music(MUSIC_STOP)
-				mob:Music(999)
+				/*mob:Music(MUSIC_STOP)
+				mob:Music(999)*/
 
 			if(ref == "killfocus")
 				winset(src, "chatPublic.input", "focus=true")

@@ -171,9 +171,9 @@ mob/game
 			src.mess("You are dead.")
 			info("[src] has died [cause]!")
 			current_song_duration = 99990
-			Music(MUSIC_STOP)
+			/*Music(MUSIC_STOP)
 			var/songs[] = list('sounds/Death.ogg'=99990)
-			PlayMusic(songs)
+			PlayMusic(songs)*/
 			current_fight = list()
 			var/obj/game/corpse/C = new /obj/game/corpse(src.loc)
 			C.name = "[src]'s corpse"
@@ -203,8 +203,8 @@ mob/game
 			stamina = maxstamina
 			if(action) del action
 			Respawn(respawnAt)
-			Music(MUSIC_STOP)
-			Music(999)
+			//Music(MUSIC_STOP)
+			//Music(999)
 
 
 
