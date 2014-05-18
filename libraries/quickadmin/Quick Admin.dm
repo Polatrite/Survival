@@ -248,7 +248,7 @@ mob/admin/verb
 		world << "<B><center>[usr] has booted [M]!"
 		M.Logout()
 
-	watch(mob/M in world, msg in list("View","Statpanels","Both","Reset to self"))
+	/*watch(mob/M in world, msg in list("View","Statpanels","Both","Reset to self"))
 		set category = "Admin"
 		if(msg == "View")
 			client.perspective = EYE_PERSPECTIVE
@@ -264,7 +264,7 @@ mob/admin/verb
 			client.eye = src
 			client.statobj = src
 		if(msg != "Reset to self")
-			src << "<B>You are now watching [M].</B>"
+			src << "<B>You are now watching [M].</B>"*/
 
 
 	transfer(var/mob/M in world, var/mob/N as null|mob in world)

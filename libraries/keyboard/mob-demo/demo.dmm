@@ -1,0 +1,28 @@
+"a" = (/turf/rock,/area)
+"b" = (/turf/grass,/area)
+"c" = (/mob/other_mob,/turf/grass,/area)
+"d" = (/turf/water,/area)
+"e" = (/turf/trees,/area)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+abbaaaabbaaabbaaaaaa
+bbbbbabbbbbbbbaabaaa
+bbbcbbbbbbbbbbbabbba
+ddbbbbbbbbbbcbbbbbbb
+dddbddddbbbbbbbbbbbb
+bddddddddbbbbbbbbbbb
+bbdddbbbddbbbbbbbbbb
+bbbbbbbbbdbbbbbeebbb
+bbbbeeebbdbbbbeeeebb
+bbaeeeebbbbbbbeeebbb
+baaeeebbbbbbbbbbbbbb
+baaabbbbbdbbbbbbbbbb
+bbbbbbbbbdbbbbbcbbbb
+bbbbbbbbbddbbbbbbbeb
+bbbbbbcbbdddbbbbbbbb
+bbbbbbbbbbdddbbbbeee
+bbbbbbebbbbddbbbeeee
+bbbbeeeebbbddddbeeee
+bbbeeeeebbbbdddeeeee
+"}

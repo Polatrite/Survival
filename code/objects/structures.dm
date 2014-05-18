@@ -350,6 +350,16 @@ obj
 					icon_state = "anvil"
 					density = 1
 
+			rip_saw
+				durability = 70000
+				maxdurability = 70000
+				layer = LAYER_OBJ_5
+				ground_rip_saw
+					resources = list(/:iron/iron_bar = 250)
+					icon = 'obj1.dmi'
+					icon_state = "anvil"
+					density = 1
+
 			lathe
 				maxdurability = 20000
 				durability = 20000

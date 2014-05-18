@@ -18,7 +18,7 @@ proc
 			delay = -3
 		if(istype(TL, /obj/game/item/tools/axe/reinforced_iron_axe))
 			delay = -3
-		delay = M.Delay("lumberjack", delay)
+		delay += M.Delay("lumberjack", delay)
 		if(TL)
 			M.mess("You start cutting a [O.name]. ([delay])","[M] begins cutting a [O.name].")
 			delay *= 1.5

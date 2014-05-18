@@ -163,6 +163,9 @@ mob/game
 				if(M.hit_target == src)
 					M.hit_target = null
 					del(M.hit_target_marker)
+			for(var/atom/movable/A in followers)
+				A.following = null
+			followers = list()
 			hp = 1
 			stamina = 1
 			hunger = 0
