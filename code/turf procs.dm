@@ -147,7 +147,27 @@ turf
 					M.movable = 1
 		return ..()
 
+// dir_bitflags[dir] = bitflag
+var/list/dir_bitflags = list(1, 16, 0, 4, 2, 8, 0, 64, 128, 32)
+
+turf
 	proc
+		AutoJoin()
+			for(var/d = 1 to 10)
+				if(!dir_bitflags[d]) continue
+				var/turf/T = get_step(src, d)
+				// want to join to the borders of the map?
+				// just change T && to !T ||
+				if(T && (T.type == type || (autojointype && istype(T, autojointype))))
+					joinflag |= dir_bitflags[d]
+			/*
+			Bitwise math for 47-state joining:
+			Leave cardinal directions (1+4+16+64=85) on, but AND others with
+			neighboring bits.
+			*/
+			joinflag &= ((joinflag << 1) & ((joinflag << 7) | (joinflag >> 1))) | 85
+			icon_state = "[joinflag]"
+
 		AutoJoin32()
 			// cardinal
 			MatchTurf(NORTH,1)

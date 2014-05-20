@@ -49,6 +49,8 @@ world
 			T.NewFish()
 		for(var/turf/cave/cave_wall/T in world)
 			T.AutoJoin32()
+		for(var/turf/TEST_dirt/T in world)
+			T.AutoJoin()
 		Load("automap.txt")
 		for(var/obj/game/structure/I in world)
 			if(I.durability == null)
@@ -265,15 +267,13 @@ world
 		WeatherSet(msg)
 			weather_type = msg
 			for(var/mob/game/M in world)
-				if(M.key && M.client && M.client.primary_weather)
-					if(M.z == 1)
-						M.WeatherSet(msg)
+				if(M.z == 1)
+					M.WeatherSet(msg)
 
 		WeatherClear()
 			weather_type = null
 			for(var/mob/game/M in world)
-				if(M.key && M.client && M.client.primary_weather)
-					M.WeatherClear()
+				M.WeatherClear()
 
 		TreeWind(tree_list[], dir)
 			for(var/x = 0, x < world.maxx, x++)

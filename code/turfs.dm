@@ -8,6 +8,12 @@ turf
 		autojointype
 
 
+	TEST_dirt
+		icon = 'graphics/NEW/dirt_47.dmi'
+		joinstyle = 1
+		autojointype = /turf/TEST_dirt
+
+
 	water
 		icon = 'water.dmi'
 		icon_state = "water"
@@ -20,6 +26,7 @@ turf
 				v_drink(usr, src, 20)
 			else
 				v_fish(usr, src)
+
 		Enter(mob/game/M)
 			if(istype(M))
 				M.old_icon = M.icon

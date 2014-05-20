@@ -189,14 +189,16 @@ mob/game
 			return 0
 
 		WeatherSet(msg)
-			if(z == 1)
-				client.primary_weather.icon = 'weather effects.dmi'
-				client.primary_weather.icon_state = msg
-			if(z == 2)
-				WeatherClear()
+			if(key && client)
+				if(z == 1)
+					client.primary_weather.icon = 'weather effects.dmi'
+					client.primary_weather.icon_state = msg
+				if(z == 2)
+					WeatherClear()
 
 		WeatherClear()
-			client.primary_weather.icon = null
+			if(key && client && client.primary_weather)
+				client.primary_weather.icon = null
 
 		Tick()
 			/*if(key)
