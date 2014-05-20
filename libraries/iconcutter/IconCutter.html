@@ -1,0 +1,237 @@
+<html>
+<head>
+  <title>IconCutter Help</title>
+  <style>
+    body {font:80% "Trebuchet MS",Arial,Helvetica,sans-serif}
+    h1 {font:bold 400% "Trebuchet MS",Arial,Helvetica,sans-serif;margin-bottom:0}
+    h2 {font:bold 160% "Trebuchet MS",Arial,Helvetica,sans-serif;margin-bottom:0}
+    h3 {font:bold 120% "Trebuchet MS",Arial,Helvetica,sans-serif;margin-bottom:0}
+    code {font-size:1.2em}
+  </style>
+</head>
+<body>
+
+<div align=center>
+  <h1>IconCutter</h1>
+  <p style="margin-top:0">Version 2<br />
+  <i>by Lummox JR</i></p>
+</div>
+
+<h2>What is IconCutter?</h2>
+
+<p>IconCutter is a utility designed to create icons suitable for autojoining
+from a template you supply.</p>
+
+<p>Autojoining icons may be used to create effects such as walls that have
+continuous edges instead of individual blocks, puddles and ponds that have
+realistic-looking boundaries instead of square tiles, tables that adjust to
+fit any shape you want, and more.</p>
+
+<p>Throughout the following text, numbers that refer to different join states
+can be considered as combinations of bits. Bit 0 (value 1) is north, bit 1
+(2) is northeast, bit 2 (4) east, bit 3 (8) southeast, and so on clockwise.</p>
+
+<p>For more information on how to use autojoining effects in your games, see
+<a href="http://www.byondscape.com/ascape.dmb/LummoxJR.2002-1231/" target="_blank">Dream
+Tutor: All Together Now</a> at BYONDscape.</p>
+
+
+<h2>The Template Icon</h2>
+
+<p>To begin using IconCutter, the first thing you'll need is an icon to use
+as a template. <code>sourceicons.dmi</code>, included in the project, is a
+good example. It has icon states 0, 17, 68, 85, and 255, which make it useful
+for <a href="#47">47-state autojoining</a>. State 0 is all outer edges: It's
+for tiles that won't join to any other. State 17 is for joining to the north
+and south; notice it has edges to either side. State 68 is the same east and
+west. 85's edges are inside corners, which is what you get when joining in
+all 4 cardinal directions but not diagonally. And finally, 255 is for tiles
+completely surrounded by other tiles; it has no edges at all.</p>
+
+<p>The way IconCutter works is by breaking these templates up into 4 corners
+each, and developing all the possible autojoin states from those corners. For
+example, state 1 would be an icon that joins to the north only; its bottom
+half needs outside corners like you see in state 0, and its top half needs
+to join north with edges on either side, like you see in state 17. So
+IconCutter builds state 1 by taking the top half of 17 and the bottom of
+0.</p>
+
+<p>To get good results out of IconCutter, your template icons should be made
+so that each can be split into 4 16&times;16 corners and mixed with other
+corners. For example, if you made water tiles and used a different pattern
+for each icon in the template, the corners wouldn't match up well; state
+5--which uses the corners of 0, 17, 68, and 85--would be one of many finished
+icons that showed a seam between the corners.</p>
+
+<p>IconCutter can do more than one kind of joining at a time. To put multiple
+autojoining icons in the same file, all you need to do is give them different
+state names followed by numbers. For example, you could have trees0, trees17,
+etc., and then also have sand0, sand17, sand68.... IconCutter would properly
+apply your requested autojoin type to create trees1, trees4, and so on, while
+also making icons for the sand series.</p>
+
+<p>The numbers you need depend on the kind of joining you wish to do. You
+must have 0, 17, 68, and 85 at the very least. If that's all you have, it's
+suited for 16-state joining. For 47-state joining, which is more common
+(because it's more versatile), you also need 255 for the filled corners. In
+addition, IconCutter supports other join types including 161-state (which
+requires states 187 and 238) and 256-state (which uses all of the above as
+well as 170).</p>
+
+
+<h2>Using IconCutter</h2>
+
+<p>Once you have your template icon, you're ready to cut it. Open IconCutter
+and click the Load link that appears in your browser. A list of the joinable
+states will appear, with options for you to choose from. In the case of
+<code>sourceicons.dmi</code>, you'll see that the default state ("") is a
+good candidate for 47-state joining.</p>
+
+<p>Go down the list and choose the join type you want for each series.
+You can choose a lower value like 16, or a higher value. If you choose to
+autojoin for more states, like using a 47-state template to build a 161-state
+icon, IconCutter will fill in as best it can from what you provide. There's
+no point using a higher value if you don't have to, though, as it just makes
+a larger file.</p>
+
+<p>You can also select no joining, if you don't plan to use autojoining for
+a template set that might support it.</p>
+
+<p>Once you're ready, click any one of the "Join now" buttons. The icons
+will then be sliced and diced into their new form. If you're ready to save
+at this point, click the <b>Save</b> link at the top of the page, and
+IconCutter will prompt you for a file name. Save the new icon as anything you
+like.</p>
+
+<p>You can still keep working on the same set, if you change your mind about
+something, or you can load a new icon and start again.</p>
+
+
+<h2>Play Mode</h2>
+
+<div style="float:right; width:200px; font-size:80%; margin-left:1em; margin-bottom:0.5em">
+<center><div style="padding:9px; margin-bottom:0.5em; border:1px solid black"><img src="playwindow.png" width=160 height=140 /></div></center>
+<p>A sample Play window. The center icon is surrounded by 6 others with
+combined bit flags of 246. In 47-state joining, the corners with flags 2 and
+128 don't count, so the real state displayed is 116.</p>
+</div>
+
+<p>To see your joined icon in action, you can click the <b>Play</b> link to
+play around with it. A popup window will appear with a 3&times;3 grid of
+icons. The center grid cell will show your icon, and other icons around it
+may be turned on or off. Your icon in the center will adjust accordingly.
+Below you will see the bitflags that the surrounding icons represent, as well
+as the actual state displayed for the center icon.</p>
+
+
+<h2>Autojoining Types</h2>
+
+<a name=16></a><h3>16-state joining</h3>
+
+<p>16-state joining is the simplest kind: It doesn't care about connections
+between corners. It has 16 states because each of the 4 sides may be
+connected or not, which is simply 2&times;2&times;2&times;2. Although
+IconCutter describes this as "unfilled corners", really your icons can look
+however you want. For many things you can get a good effect out of just 16
+states.</p>
+
+<p>The most obvious uses for 16-state joining include roads and pipes.</p>
+
+<a name=47></a><h3>47-state joining</h3>
+
+<p>47-state joining is the most common, because it is the most useful. It
+can show edges anywhere. The only restriction is that it may not join a
+corner unless both sides next to that corner are also joined. 47 seems like
+a strange number, but that's really what it works out to. Mathematically,
+having 4 sides and 4 corners could mean up to 256 connections, which is
+where <a href="#256">256-state joining</a> comes in, but the restriction on
+how corners can be joined means that certain combinations just don't work.
+Only 47 do.</p>
+
+<p>This kind of join can be used for most items: Walls, terrain, water.</p>
+
+<p>To reduce a set of bit flags to a valid 47-state form, use this formula:
+<blockquote><code>flags &amp;= ((flags &lt;&lt; 1) &amp; ((flags &lt;&lt; 7) | (flags &gt;&gt; 1))) | 85</code></blockquote></p>
+
+<a name=161></a><h3>161-state joining</h3>
+
+<p>161-state "incomplete corner" joining is unique but of limited
+practicality for most games. It's a hybrid between 47-state and 256-state
+joins. It can reduce the "squaring" effect of 47-state joining to further
+round out inside corners, and it can be used to create edges that terminate
+instead of flowing into the next icon. The difference between this and
+47-state joining is that a corner can have a connection as long as
+<i>either</i> side next to it is also connected.</p>
+
+<p>Templates for 161-state joining need states 187 (connections north, south,
+and in all diagonal directions) and 238 (connections east, west, and all
+diagonals).</p>
+
+<p>I discovered this join type when trying to make autojoining railings for
+a game. Graphically it made no sense for a railing to continue into a set
+of stairs if the staircase was going down; I wanted the railing to have a
+nice post at the end instead. So I created a rule for this: If the stairs
+next to this tile go down, count the corner tiles next to the stairs as
+connected.</p>
+
+<p>This join type is useful for realistic liquid, terrain, or cavern walls.
+The incomplete corners "anticipate" a curve, so you can draw part of the
+curve in the incomplete corner, and part in the inside corner (state 85),
+instead of having the inside corner draw a single curve constrained by small
+space.</p>
+
+<p>To reduce a set of bit flags to a valid 161-state form, use this formula:
+<blockquote><code>flags &amp;= (flags &lt;&lt; 1) | (flags &lt;&lt; 7) | (flags &gt;&gt; 1) | 85</code></blockquote></p>
+
+<a name=256></a><h3>256-state joining</h3>
+
+<p>This type allows corner connections to be independent of the sides. It is
+almost useless because generally, any time you'd want to connect the corners
+of two tiles, you would want some kind of smooth transition into the tiles to
+either side. An exception would be a game like ACWraith's Webcrawl, where the
+connection is just a 1-pixel line.</p>
+
+<p>To make a 256-state template, you need states 187 and 238 as you would in
+<a href="#161">161-state joining</a>, as well as 170. State 170 should show
+connections to all of the corners, but none of the sides.</p>
+
+<a name=82></a><h3>82-state joining</h3>
+
+<p>This join type is a hybrid between <a href="#16">16-state</a> and
+<a href="#161">161-state joining</a>. Partial corners are allowed, but the
+difference between inside and filled corners is meaningless. A corner is only
+considered connected if one and only one side next to it is also connected.</p>
+
+<p>Templates for 82-state joining need states 187 and 238, but not 255.</p>
+
+<p>To reduce a set of bit flags to a valid 82-state form, use this formula:
+<blockquote><code>flags &amp;= (flags &lt;&lt; 1) ^ (flags &lt;&lt; 7) | (flags &gt;&gt; 1) | 85</code></blockquote></p>
+
+<a name=Foomer></a><h3>Foomerian joining</h3>
+
+<p>Foomer invented a subset of <a href="#47">47-state</a> joins which only
+uses 13 states. This allows for much smaller icon files and more artistic
+freedom, but places some restrictions on how the icons are used. Generally
+icon sets of this sort aren't built by IconCutter, but by hand. However,
+IconCutter can create them.</p>
+
+<p>There are only 13 valid states in Foomerian joining: a single outside or
+inside corner, a side, or completely filled. To place the icons correctly,
+each must be part of a 2&times;2 block. Also in any given 3&times;3 block,
+there may not be two empty corner tiles, since this would require the center
+icon to have two inside corners.</p>
+
+<p>Another type of join based on this, Neo-Foomerian joining, uses 15 states.
+It has the same restrictions except for one: it allows icons with two inside
+corners. This form is a little easier to work with when building maps, but it
+does remove some of the artistic design advantages of a 13-state join in that
+it's harder to make by hand. (Many icon sets designed for original 13-state
+joining can be converted to 15-state by cutting the inside corner icons
+diagonally and combining them to create states 119 and 221.)</p>
+
+<p>The source icon for a Foomerian join should have states 0, 17, 68, 85, and
+255, but of those only state 255 will appear in the final output. The other
+states will be used to build the valid ones.</p>
+
+
+</body></html>
