@@ -59,7 +59,7 @@ var/list/craftables = list(
 				list(/:materials/lumber = 15), icon('obj1.dmi', "wooden pickaxe")),
 			new/craftable("Wooden Axe", "A wooden axe for cutting, highly prone to breaking.",
 				/obj/game/item/tools/axe/wooden_axe, 1,
-				"woodworking", 5, 0, 51, list(),
+				"woodworking", 2, 0, 51, list(),
 				list(/:materials/lumber = 12, /:item/stone/stone = 5), icon('obj1.dmi', "wooden axe")),
 			new/craftable("Raft", "A small raft for short trips on the water, supports one person.",
 				/obj/game/item/boat/raft, 1,

@@ -103,7 +103,8 @@ mob
 					time_walk = 5
 					hp = 30
 					maxhp = 30
-					attack = 30
+					attack = 25
+					attackspeed = 25
 
 				wolf
 					icon = 'enemies.dmi'
