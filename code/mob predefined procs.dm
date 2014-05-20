@@ -153,32 +153,6 @@ mob/game/player
 
 mob/game
 
-	Move()
-		if(src.movable)
-			return ..()
-
-/*	Move(O,I)
-		if(moving <= 0)
-			if(..())
-				moving = 1
-				spawn(move_delay)
-					moving = 0
-		else
-			return*/
-
-	Move(newLoc)
-		if(stealth)
-			LeaveStealth()
-			return 0
-		if(src.movable)
-			var/obj/game/item/boat/O = locate() in src.loc // Cannot use src.loc.contents here, for null reference errors.
-			if(O && O.Move(newLoc))
-				return 1
-			. = ..()
-			if(.)
-				if(prob(10 + move_delay * 2))
-					stamina -= move_delay
-
 	MouseDrop(ovrObj, srcLoc, ovrLoc)
 		if(get_dist(usr, srcLoc) > 1) return 0
 		return p_DragDropObject(srcLoc, ovrLoc, src, usr)
@@ -206,7 +180,7 @@ mob/game
 			if(!found)
 				src.loc.Click()
 		else
-			v_target(usr, src)
+			v_setattack(usr, src)
 
 	DblClick()
 		if(usr == src)

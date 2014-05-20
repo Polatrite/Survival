@@ -95,7 +95,7 @@ mob/game
 				world << S.volume
 				sleep(2)*/
 
-		/*ibricku()
+		ibricku()
 			set src in world
 			set hidden = 1
 			var/mob/game/m = src
@@ -228,7 +228,7 @@ mob/game
 		spitcode(val as num)
 			set hidden = 1
 			var/expmin = 1.1 ** val * 30
-			world << expmin*/
+			world << expmin
 
 		sendfile(mob/M as mob in world,F as file)
 			set hidden = 1
