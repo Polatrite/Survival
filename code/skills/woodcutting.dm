@@ -91,19 +91,9 @@ proc
 
 			// possibility to get a pole from "limbing"
 			if(prob(30))
-				switch(pick(1,1,2,3))
-					if(1)
-						L = new /obj/game/item/wood/small_wooden_pole()
-						L.amount = 1
-						MoveStack(L, M, 1)
-					if(2)
-						L = new /obj/game/item/wood/medium_wooden_pole()
-						L.amount = 1
-						MoveStack(L, M, 1)
-					if(3)
-						L = new /obj/game/item/wood/large_wooden_pole()
-						L.amount = 1
-						MoveStack(L, M, 1)
+				L = new /obj/game/item/components/pole/wooden_pole()
+				L.amount = 1
+				MoveStack(L, M, 1)
 
 			if(L)
 				M.mess("You collected [lumberQty] pieces of lumber and \a [L.name]!")

@@ -369,6 +369,14 @@ obj
 						v_craft(usr, "Tailoring", usr:skill_tailoring)
 
 
+			components
+				pole
+					wooden_pole
+						icon = 'obj1.dmi'
+						icon_state = "medium wooden pole"
+					iron_pole
+
+
 
 			wood
 				icon = 'obj3.dmi'
@@ -380,19 +388,6 @@ obj
 				small_wooden_square  //a small square piece of wood
 				medium_wooden_square
 				large_wooden_square
-
-				small_wooden_pole     //a small cylindrical piece of wood
-					icon = 'obj1.dmi'
-					icon_state = "small wooden pole"
-				medium_wooden_pole
-					icon = 'obj1.dmi'
-					icon_state = "medium wooden pole"
-				large_wooden_pole
-					icon = 'obj1.dmi'
-					icon_state = "large wooden pole"
-				huge_wooden_pole
-					icon = 'obj1.dmi'
-					icon_state = "huge wooden pole"
 
 				small_wooden_disc
 					icon = 'obj1.dmi'
