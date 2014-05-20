@@ -88,7 +88,7 @@ mob/login
 	var/account/account
 
 	Login()
-		if(findText(key, "Guest-", 1, 7))
+		if(findtextEx(key, "Guest-", 1, 7))
 			AccountLogin()
 			while(!logged_in)
 				sleep(5)

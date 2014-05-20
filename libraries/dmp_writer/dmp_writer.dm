@@ -43,7 +43,7 @@ dmp_writer{
 	verb{
 		save_map(var/turf/t1 as turf, var/turf/t2 as turf, var/map_name as text, var/flags as num){
 			//Check for illegal characters in file name... in a cheap way.
-			if(!((cKey(map_name)==map_name) && cKey(map_name))){
+			if(!((ckeyEx(map_name)==map_name) && ckeyEx(map_name))){
 				CRASH("Invalid text supplied to proc save_map, invalid characters or empty string.")
 				}
 			//Check for valid turfs.
