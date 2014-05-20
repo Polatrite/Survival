@@ -18,7 +18,9 @@ proc
 			delay = -3
 		if(istype(TL, /obj/game/item/tools/axe/reinforced_iron_axe))
 			delay = -3
-		delay += M.Delay("lumberjack", delay)
+		if(!TL)
+			delay = 5
+		delay = M.Delay("lumberjack", delay)
 		if(TL)
 			M.mess("You start cutting a [O.name]. ([delay])","[M] begins cutting a [O.name].")
 			delay *= 1.5
@@ -81,9 +83,32 @@ proc
 			return 0
 		else
 			var/obj/game/L = new /obj/game/item/materials/lumber()
-			L.amount = min(6, pick(2,2,2,3) + M.GetSkillMod("woodcutting", 15))
-			M.mess("You collected [L.amount] pieces of lumber!")
-			MoveStack(L, M, L.amount)
+			var/lumberQty = min(7, pick(3,3,3,4) + M.GetSkillMod("woodcutting", 15))
+			L.amount = lumberQty
+			MoveStack(L, M, lumberQty)
+
+			L = null
+
+			// possibility to get a pole from "limbing"
+			if(prob(30))
+				switch(pick(1,1,2,3))
+					if(1)
+						L = new /obj/game/item/wood/small_wooden_pole()
+						L.amount = 1
+						MoveStack(L, M, 1)
+					if(2)
+						L = new /obj/game/item/wood/medium_wooden_pole()
+						L.amount = 1
+						MoveStack(L, M, 1)
+					if(3)
+						L = new /obj/game/item/wood/large_wooden_pole()
+						L.amount = 1
+						MoveStack(L, M, 1)
+
+			if(L)
+				M.mess("You collected [lumberQty] pieces of lumber and \a [L.name]!")
+			else
+				M.mess("You collected [lumberQty] pieces of lumber!")
 		if(O.value1 <= 0)
 			del(O)
 

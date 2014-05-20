@@ -144,12 +144,12 @@ obj
 						v_lumberjack(usr, get_step(usr, usr.dir))
 					wooden_axe
 						icon_state = "wooden axe"
-						durability = 80
-						maxdurability = 80
+						durability = 120
+						maxdurability = 120
 					iron_axe
 						icon_state = "iron axe"
-						durability = 200
-						maxdurability = 200
+						durability = 250
+						maxdurability = 250
 					reinforced_iron_axe
 						icon_state = "reinforced iron axe"
 						durability = 500
